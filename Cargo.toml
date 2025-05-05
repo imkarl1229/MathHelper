@@ -6,3 +6,10 @@ edition = "2024"
 [dependencies]
 egui = "0.31.1"
 eframe = "0.31.1"
+
+[[bin]]
+name = "mathhelper"
+path = "src/main.rs"
+
+[profile.release]
+opt-level = "z"
