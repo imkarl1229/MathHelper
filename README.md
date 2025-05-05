@@ -1,7 +1,7 @@
 # MathHelper
 
 ## Description
-> This is a project that help me learn C++ and Fortran and re-learn ow do I do some math problems
+> This is a project that help me learn Rust and re-learn ow do I do some math problems
 > Don't ever use it on your HW, learn to do it in school
 
 ## Clone
