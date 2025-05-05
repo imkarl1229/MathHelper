@@ -114,7 +114,7 @@ impl eframe::App for UI {
                     "Simple" => {
                         ui.label("Select Mode:");
                         ui.horizontal(|ui| {
-                            let modes = vec!["Add", "Subtract", "Multiply", "Divide"];
+                            let modes = vec!["Add", "Subtract", "Multiply", "Divide", "Pow", "Root"];
                             but_mode_creator(ui, &mut self.mode, &modes);
                         });
                         ui.label(format!("Current mode: {}", &self.mode));
@@ -136,11 +136,21 @@ impl eframe::App for UI {
                                         "Subtract" => format!("{}", self.numbers[0] - self.numbers[1]),
                                         "Multiply" => format!("{}", self.numbers[0] * self.numbers[1]),
                                         "Divide" => format!("{}", self.numbers[0] / self.numbers[1]),
+                                        "Pow" => format!("{}", self.numbers[0].powf(self.numbers[1])),
+                                        "Root" => format!("{}", self.numbers[0].powf(1.0 / self.numbers[1])),
                                         _ => "Wut?".to_string()
                                     });
                                 }
                             }
                             ui.label(self.result.clone());
+                        });
+                        ui.separator();
+                        ui.horizontal(|ui| {
+                            for i in 0..2 {
+                                if ui.button(format!("Insert result into box {}", i + 1)).clicked() {
+                                    self.inputs[i] = self.result.clone().replace("Result: ", "");
+                                }
+                            }
                         });
                     }
                     
