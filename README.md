@@ -14,7 +14,7 @@ Go to release and download the version you wanted to download
 
 ## Usage
 
-Follow the instructions that the app gived to you
+Follow the instructions that the app gived to you\n
 **THE UI SHOULD BE SIMPLE ENOUGH IF YOU ARE A HUMAN**
 
 ## License
