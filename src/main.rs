@@ -15,11 +15,14 @@ struct UI {
     mode: String,
     inputs: Vec<String>,
     numbers: Vec<f64>,
-    result: String
+    result: String,
+
+    special: String
 }
 
 impl UI {
     fn new(_cc: &eframe::CreationContext<'_>) -> Self {
+        let uk = "Unknown".to_string();
         let category: Vec<Category> = vec![
             Category {
                 name: "Basic",
@@ -34,7 +37,8 @@ impl UI {
             categories: category,
             inputs: vec!["".to_string(), "".to_string()],
             numbers: vec![0.0, 0.0],
-            mode: "Unknown".to_string(),
+            mode: uk.clone(),
+            special: uk.clone(),
             ..Default::default()
         }
     }
@@ -125,6 +129,7 @@ impl eframe::App for UI {
                             ui.text_edit_singleline(&mut self.inputs[1]);
                         });
                         ui.separator();
+                        ui.label("Result:");
                         ui.horizontal(|ui| {
                             if ui.button("Get Result").clicked() {
                                 if self.mode.is_empty() {
@@ -145,10 +150,35 @@ impl eframe::App for UI {
                             ui.label(self.result.clone());
                         });
                         ui.separator();
+                        ui.label("Insert result into...");
                         ui.horizontal(|ui| {
                             for i in 0..2 {
                                 if ui.button(format!("Insert result into box {}", i + 1)).clicked() {
                                     self.inputs[i] = self.result.clone().replace("Result: ", "");
+                                }
+                            }
+                        });
+                        ui.separator();
+                        ui.label("Special Numbers:");
+                        ui.horizontal(|ui| {
+                            for &label in ["PI", "e"].iter() {
+                                if ui.button(label).clicked() {
+                                    self.special = label.to_string();
+                                }
+                            }
+                            ui.label(format!("Selected: {}", self.special));
+                        });
+                        ui.horizontal(|ui| {
+                            for i in 0..self.inputs.len() {
+                                if ui.button(format!("Insert Number to input box {}", i + 1)).clicked() {
+                                    let v = &mut self.inputs[i];
+                                    if self.special == "PI" {
+                                        *v = std::f64::consts::PI.to_string();
+                                    } else if self.special == "e" {
+                                        *v = std::f64::consts::E.to_string();
+                                    } else {
+                                        *v = "0".to_string();
+                                    }
                                 }
                             }
                         });
